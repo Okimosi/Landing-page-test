@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Goodlight Studio"
+description = "A confident, design-led landing page for a fictional Lagos creative studio, introducing its work, services, and approach to brands and founders."
+version = "1.0.0"
+id = "artifacts/goodlight-studio"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19066
+
+[services.development]
+run = "pnpm --filter @workspace/goodlight-studio run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/goodlight-studio", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/goodlight-studio/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19066"
+BASE_PATH = "/"
